@@ -36,4 +36,16 @@ class Constant {
     col_num.put("h", 8);
     COL_NUM = Collections.unmodifiableMap(col_num);
   }
+
+  //ひっくり返す方向
+  public static final int NONE = 0; //= 0000 0000
+  public static final int UPPER_LEFT = 1; //= 0000 0001
+  public static final int UPPER = 2; //= 0000 0010
+  public static final int UPPER_RIGHT = 4; //= 0000 0100
+  public static final int RIGHT = 8; //= 0000 1000
+  public static final int LOWER_RIGHT = 16; //= 0001 0000
+  public static final int LOWER = 32; //= 0010 0000
+  public static final int LOWER_LEFT = 64; //= 0100 0000
+  public static final int LEFT = 128; //= 1000 0000
+
 }
