@@ -59,6 +59,67 @@ class Board {
     System.out.print("\n 黒:" + stone_count[0] + " 白:" + stone_count[1] + "\n\n");
   }
 
+  public void reverse(int row, int col, int color) {
+    board[row][col] = color;
+    int turn_direction = turnable_direction(row, col, color);
+    if ((turn_direction & Constant.UPPER_LEFT) != 0) {
+      int i = 1;
+      while (board[row - i][col - i] == -color) { // 相手の色が続くまで
+        board[row - i][col - i] = color;
+        i += 1;
+      }
+    }
+    if ((turn_direction & Constant.UPPER) != 0) {
+      int i = 1;
+      while (board[row - i][col] == -color) { // 相手の色が続くまで
+        board[row - i][col] = color;
+        i += 1;
+      }
+    }
+    if ((turn_direction & Constant.UPPER_RIGHT) != 0) {
+      int i = 1;
+      while (board[row - i][col + i] == -color) { // 相手の色が続くまで
+        board[row - i][col + i] = color;
+        i += 1;
+      }
+    }
+    if ((turn_direction & Constant.RIGHT) != 0) {
+      int i = 1;
+      while (board[row][col + i] == -color) { // 相手の色が続くまで
+        board[row][col + i] = color;
+        i += 1;
+      }
+    }
+    if ((turn_direction & Constant.LOWER_RIGHT) != 0) {
+      int i = 1;
+      while (board[row + i][col + i] == -color) { // 相手の色が続くまで
+        board[row + i][col + i] = color;
+        i += 1;
+      }
+    }
+    if ((turn_direction & Constant.LOWER) != 0) {
+      int i = 1;
+      while (board[row + i][col] == -color) { // 相手の色が続くまで
+        board[row + i][col] = color;
+        i += 1;
+      }
+    }
+    if ((turn_direction & Constant.LOWER_LEFT) != 0) {
+      int i = 1;
+      while (board[row + i][col - i] == -color) { // 相手の色が続くまで
+        board[row + i][col - i] = color;
+        i += 1;
+      }
+    }
+    if ((turn_direction & Constant.LEFT) != 0) {
+      int i = 1;
+      while (board[row][col - i] == -color) { // 相手の色が続くまで
+        board[row][col - i] = color;
+        i += 1;
+      }
+    }
+  }
+
   public int turnable_direction(int row, int col, int color) {
     int direction = Constant.NONE;
     if (board[row - 1][col - 1] == -color) {
@@ -135,6 +196,7 @@ class Board {
     }
     return direction;
   }
+
   public ArrayList<int[]> get_putable_cells(int color) {
     ArrayList<int[]> putable_cells = new ArrayList<int[]>();
     int i = 0;
@@ -154,6 +216,7 @@ class Board {
     }
     return putable_cells;
   }
+
   public void undo(int[][] board) {
     this.board = board;
   }
@@ -186,5 +249,7 @@ class Main {
     board.show_board();
     board.get_board();
     System.out.println(Arrays.deepToString(board.get_putable_cells(1).toArray()));
+    board.reverse(3, 4, 1);
+    board.show_board();
   }
 }
