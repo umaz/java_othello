@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
 class Board {
   private int[][] board = {
@@ -240,16 +239,5 @@ class Board {
     }
     int[] count = {black, white};
     return count;
-  }
-}
-
-class Main {
-  public static void main(String[] argd) {
-    Board board = new Board();
-    board.show_board();
-    board.get_board();
-    System.out.println(Arrays.deepToString(board.get_putable_cells(1).toArray()));
-    board.reverse(3, 4, 1);
-    board.show_board();
   }
 }

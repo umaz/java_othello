@@ -10,6 +10,14 @@ class Constant {
   public static final int WHITE = -1;
   public static final int WALL = 2;
 
+  public static final Map<Integer, String> COLOR;
+  static {
+    Map<Integer, String> color = new HashMap<>();
+    color.put(BLACK, "黒");
+    color.put(WHITE, "白");
+    COLOR = Collections.unmodifiableMap(color);
+  }
+
   public static final Map<String, Integer> ROW_NUM;
   static {
     Map<String, Integer> row_num = new HashMap<>();
@@ -48,4 +56,8 @@ class Constant {
   public static final int LOWER_LEFT = 64; //= 0100 0000
   public static final int LEFT = 128; //= 1000 0000
 
+  //結果
+  public static final int MOVE = 1;
+  public static final int PASS = 2;
+  public static final int FINISH = 3;
 }
