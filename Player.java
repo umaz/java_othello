@@ -3,8 +3,10 @@ import java.util.Random;
 
 class Player {
   private int color;
-  Player(int c) {
+  private int lv;
+  Player(int c, int l) {
     color = c;
+    lv = l;
   }
 
   public int get_color() {

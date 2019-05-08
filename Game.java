@@ -1,11 +1,28 @@
 class Game {
   private int turn = 0;
   private Board board = new Board();
-  private Player first = new Player(Constant.BLACK);
-  private Player second = new Player(Constant.WHITE);
+  private Player first;
+  private Player second;
   private int current_color = Constant.BLACK;
 
+  Game(int lv, int order) {
+    if (order == 1) {
+      first = new Player(Constant.BLACK, 0);
+      second = new Player(Constant.WHITE, lv);
+    } else {
+      first = new Player(Constant.BLACK, lv);
+      second = new Player(Constant.WHITE, 0);
+    }
+  }
+
   Game() {
+    first = new Player(Constant.BLACK, 0);
+    second = new Player(Constant.WHITE, 0);
+  }
+
+  Game(int[] lv) {
+    first = new Player(Constant.BLACK, lv[0]);
+    second = new Player(Constant.WHITE, lv[1]);
   }
 
   public void phase() {

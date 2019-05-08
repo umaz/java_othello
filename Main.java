@@ -11,9 +11,7 @@ class Main {
       int mode = scanner.nextInt();
       if (mode == Constant.EXIT) {
         break;
-      }
-      switch (mode) {
-      case Constant.COM:
+      } else if (mode == Constant.COM) {
         System.out.println("COMのレベルを選択してください");
         int lv = scanner.nextInt();
         System.out.println("手番を選択してください");
@@ -28,31 +26,25 @@ class Main {
         default:
           break;
         }
-        start_game();
-        break;
-
-      case Constant.HUMAN:
-        start_game();
-        break;
-
-      case Constant.WATCH:
+        Game game = new Game(lv, order);
+        game.phase();
+      } else if (mode == Constant.HUMAN) {
+        Game game = new Game();
+        game.phase();
+      } else if (mode == Constant.WATCH) {
         System.out.println("先手のレベルを選択してください");
         int first = scanner.nextInt();
         System.out.println("後手のレベルを選択してください");
         int second = scanner.nextInt();
-        start_game();
-        break;
-
-      default:
+        int[] lv = {first, second};
+        Game game = new Game(lv);
+        game.phase();
+      } else {
         System.out.println("1~4で選択したください\n");
-        break;
       }
     }
   }
-  public static void start_game() {
-    Game game = new Game();
-    game.phase();
-  }
+
   public static void main(String[] argd) {
     menu();
   }
