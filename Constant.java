@@ -60,4 +60,10 @@ class Constant {
   public static final int MOVE = 1;
   public static final int PASS = 2;
   public static final int FINISH = 3;
+
+  //モード番号
+  public static final int COM = 1;
+  public static final int HUMAN = 2;
+  public static final int WATCH = 3;
+  public static final int EXIT = 4;
 }

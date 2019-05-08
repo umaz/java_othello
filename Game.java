@@ -5,6 +5,9 @@ class Game {
   private Player second = new Player(Constant.WHITE);
   private int current_color = Constant.BLACK;
 
+  Game() {
+  }
+
   public void phase() {
     switch (status()) {
       case Constant.FINISH:
@@ -72,12 +75,5 @@ class Game {
     } else {
       System.out.print("\n黒:" + black + " 対 白:" + white + " で引き分け\n\n");
     }
-  }
-}
-
-class Main {
-  public static void main(String[] argd) {
-    Game game = new Game();
-    game.phase();
   }
 }
