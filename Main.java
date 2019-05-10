@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 class Main {
+  static Scanner scanner = new Scanner(System.in);
   public static void menu() {
-    Scanner scanner = new Scanner(System.in);
     while (true) {
       System.out.println("COMと対戦: 1");
       System.out.println("二人で対戦: 2");
@@ -43,9 +43,8 @@ class Main {
         System.out.println("1~4で選択したください\n");
       }
     }
-    scanner.close();
   }
-
+  
   public static void main(String[] argd) {
     menu();
   }

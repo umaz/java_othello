@@ -13,13 +13,30 @@ class Player {
     return color;
   }
 
-  public int[] put_stone(Board board) {
+  public int[] put_stone(Board board, int turn) {
     int[] cell;
-    if (lv == 1) {      
-      cell = lv1(board);
+    if (lv == 0) {
+      cell = lv0(board, turn);
     } else {
       cell = lv1(board);
+      String row = Constant.ROW_VALUE.get(cell[0]);
+      String col = Constant.COL_VALUE.get(cell[1]);
+      System.out.print(turn + "手目: " + col + row);
     }
+    return cell;
+  }
+
+  private int[] lv0(Board board, int turn) {
+    ArrayList<int[]> putable_cells = get_putable_cells(board);
+    for(int[] cell : putable_cells) {
+      System.out.print("(" + Constant.COL_VALUE.get(cell[1]) + Constant.ROW_VALUE.get(cell[0]) + ")");
+    }
+    System.out.print("\n" + turn + "手目: ");
+    String move = Main.scanner.next();
+    String[] split = move.split("");
+    int col = Constant.COL_NUM.get(split[0]);
+    int row = Constant.ROW_NUM.get(split[1]);
+    int[] cell = {row, col};
     return cell;
   }
 

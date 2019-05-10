@@ -43,9 +43,9 @@ class Game {
         System.out.println(Constant.COLOR.get(current_color) + "の手番です");
         int[] move;
         if (current_color == Constant.BLACK) {
-          move = first.put_stone(board);          
+          move = first.put_stone(board, turn+1);
         } else {
-          move = second.put_stone(board);
+          move = second.put_stone(board, turn+1);
         }
         reverse(move);
         board.show_board();
@@ -74,6 +74,7 @@ class Game {
     int row = move[0];
     int col = move[1];
     board.reverse(row, col, current_color);
+    turn++;
     change_phase();
   }
 
