@@ -14,6 +14,16 @@ class Player {
   }
 
   public int[] put_stone(Board board) {
+    int[] cell;
+    if (lv == 1) {      
+      cell = lv1(board);
+    } else {
+      cell = lv1(board);
+    }
+    return cell;
+  }
+
+  private int[] lv1(Board board) {
     ArrayList<int[]> putable_cells = get_putable_cells(board);
     Random rnd = new Random();
     int r = rnd.nextInt(putable_cells.size());

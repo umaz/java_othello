@@ -2,12 +2,12 @@ import java.util.Scanner;
 
 class Main {
   public static void menu() {
+    Scanner scanner = new Scanner(System.in);
     while (true) {
       System.out.println("COMと対戦: 1");
       System.out.println("二人で対戦: 2");
       System.out.println("観戦: 3");
       System.out.println("終了: 4");
-      Scanner scanner = new Scanner(System.in);
       int mode = scanner.nextInt();
       if (mode == Constant.EXIT) {
         break;
@@ -43,6 +43,7 @@ class Main {
         System.out.println("1~4で選択したください\n");
       }
     }
+    scanner.close();
   }
 
   public static void main(String[] argd) {
