@@ -20,7 +20,19 @@ class Player {
     if (lv == 0) {
       cell = lv0(board, turn);
     } else {
-      cell = lv1(board);
+      switch (lv) {
+        case 1:
+          cell = lv1(board);        
+          break;
+      
+        case 2:
+          cell = lv2(board);
+          break;
+      
+        default:
+          cell = lv1(board);
+          break;
+      }
       String row = Constant.ROW_VALUE.get(cell[0]);
       String col = Constant.COL_VALUE.get(cell[1]);
       System.out.print(turn + "手目: " + col + row);
@@ -60,12 +72,48 @@ class Player {
     ArrayList<int[]> putable_cells = get_putable_cells(board);
     Random rnd = new Random();
     int r = rnd.nextInt(putable_cells.size());
-    int[] put_cells = putable_cells.get(r);
-    return put_cells;
+    int[] put_cell = putable_cells.get(r);
+    return put_cell;
+  }
+
+  private int[] lv2(Board board) {
+    ArrayList<int[]> putable_cells = get_putable_cells(board);
+    Default d = new Default();
+    for(int[] cell : putable_cells) {
+      int score = Constant.BOARD_SCORE[cell[0]][cell[1]];
+      evaluate(cell, score, d);
+    }
+    int[] put_cell = select_com_move(d.candicate_cells);
+    return put_cell;
   }
 
   private ArrayList<int[]> get_putable_cells(Board board) {
     ArrayList<int[]> putable_cells = board.get_putable_cells(color);
     return putable_cells;
   }
+
+  private void evaluate(int[] cell, int score, Default d) {
+    if(score > d.best_score) {
+      d.candicate_cells = new ArrayList<int[]>();
+      d.candicate_cells.add(cell);
+      d.best_score = score;
+    }else if(score == d.best_score) {
+      d.candicate_cells.add(cell);
+    }
+    System.out.println(d.candicate_cells);
+  }
+
+  private int[] select_com_move(ArrayList<int[]> candicate_cells) {
+    Random rnd = new Random();
+    int r = rnd.nextInt(candicate_cells.size());
+    int[] cell = candicate_cells.get(r);
+    return cell;
+  }
+}
+
+class Default {
+  int best_score = -999999999;
+  ArrayList<int[]> candicate_cells = new ArrayList<int[]>();
+  int alpha = -999999999;
+  int beta = 999999999;
 }
