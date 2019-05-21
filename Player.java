@@ -28,7 +28,11 @@ class Player {
         case 2:
           cell = lv2(board);
           break;
-      
+        
+        case 3:
+          cell = lv3(board);
+          break;
+
         default:
           cell = lv1(board);
           break;
@@ -87,6 +91,34 @@ class Player {
     return put_cell;
   }
 
+  private int[] lv3(Board board) {
+    ArrayList<int[]> putable_cells = get_putable_cells(board);
+    Default d = new Default();
+    for (int[] cell : putable_cells) {
+      int[][] undo = new int[10][];
+      for(int i = 0; i < 10; i++) {
+        undo[i] = board.get_board()[i].clone();
+      }
+      board.reverse(cell[0], cell[1], color);
+      int score = 0;
+      int i = 0;
+      for(int[] row : board.get_board()) {
+        int j = 0;
+        for(int col : row) {
+          if(col == color) {
+            score += Constant.BOARD_SCORE[i][j];
+          }
+          j++;
+        }
+        i++;
+      }
+      board.undo(undo);
+      evaluate(cell, score, d);
+    }
+    int[] put_cell = select_com_move(d.candicate_cells);
+    return put_cell;
+  }
+
   private ArrayList<int[]> get_putable_cells(Board board) {
     ArrayList<int[]> putable_cells = board.get_putable_cells(color);
     return putable_cells;
@@ -100,7 +132,6 @@ class Player {
     }else if(score == d.best_score) {
       d.candicate_cells.add(cell);
     }
-    System.out.println(d.candicate_cells);
   }
 
   private int[] select_com_move(ArrayList<int[]> candicate_cells) {
