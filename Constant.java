@@ -45,6 +45,32 @@ class Constant {
     COL_NUM = Collections.unmodifiableMap(col_num);
   }
 
+  public static final Map<Integer, String> ROW_VALUE;
+  static {
+    Map<Integer, String> row_value = new HashMap<>();
+    row_value.put(1, "1");
+    row_value.put(2, "2");
+    row_value.put(3, "3");
+    row_value.put(4, "4");
+    row_value.put(5, "5");
+    row_value.put(6, "6");
+    row_value.put(7, "7");
+    row_value.put(8, "8");
+    ROW_VALUE = Collections.unmodifiableMap(row_value);
+  }
+  public static final Map<Integer, String> COL_VALUE;
+  static {
+    Map<Integer, String> col_value = new HashMap<>();
+    col_value.put(1, "a");
+    col_value.put(2, "b");
+    col_value.put(3, "c");
+    col_value.put(4, "d");
+    col_value.put(5, "e");
+    col_value.put(6, "f");
+    col_value.put(7, "g");
+    col_value.put(8, "h");
+    COL_VALUE = Collections.unmodifiableMap(col_value);
+  }
   //ひっくり返す方向
   public static final int NONE = 0; //= 0000 0000
   public static final int UPPER_LEFT = 1; //= 0000 0001
@@ -60,4 +86,10 @@ class Constant {
   public static final int MOVE = 1;
   public static final int PASS = 2;
   public static final int FINISH = 3;
+
+  //モード番号
+  public static final int COM = 1;
+  public static final int HUMAN = 2;
+  public static final int WATCH = 3;
+  public static final int EXIT = 4;
 }

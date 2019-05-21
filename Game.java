@@ -1,9 +1,29 @@
 class Game {
   private int turn = 0;
   private Board board = new Board();
-  private Player first = new Player(Constant.BLACK);
-  private Player second = new Player(Constant.WHITE);
+  private Player first;
+  private Player second;
   private int current_color = Constant.BLACK;
+
+  Game(int lv, int order) {
+    if (order == 1) {
+      first = new Player(Constant.BLACK, 0);
+      second = new Player(Constant.WHITE, lv);
+    } else {
+      first = new Player(Constant.BLACK, lv);
+      second = new Player(Constant.WHITE, 0);
+    }
+  }
+
+  Game() {
+    first = new Player(Constant.BLACK, 0);
+    second = new Player(Constant.WHITE, 0);
+  }
+
+  Game(int[] lv) {
+    first = new Player(Constant.BLACK, lv[0]);
+    second = new Player(Constant.WHITE, lv[1]);
+  }
 
   public void phase() {
     switch (status()) {
@@ -12,20 +32,20 @@ class Game {
         break;
     
       case Constant.PASS:
-        System.out.print(turn+1 + "手目\n");
-        System.out.print(Constant.COLOR.get(current_color) + "の手番です\n");
-        System.out.print("パスしました\n");
+        System.out.println(turn+1 + "手目");
+        System.out.println(Constant.COLOR.get(current_color) + "の手番です");
+        System.out.println("パスしました");
         board.show_board();
         phase();
         break;
 
       case Constant.MOVE:
-        System.out.print(Constant.COLOR.get(current_color) + "の手番です\n");
+        System.out.println(Constant.COLOR.get(current_color) + "の手番です");
         int[] move;
         if (current_color == Constant.BLACK) {
-          move = first.put_stone(board);          
+          move = first.put_stone(board, turn+1);
         } else {
-          move = second.put_stone(board);
+          move = second.put_stone(board, turn+1);
         }
         reverse(move);
         board.show_board();
@@ -54,6 +74,7 @@ class Game {
     int row = move[0];
     int col = move[1];
     board.reverse(row, col, current_color);
+    turn++;
     change_phase();
   }
 
@@ -66,18 +87,11 @@ class Game {
     int black = count[0];
     int white = count[1];
     if (black > white) {
-      System.out.print("\n黒:" + black + " 対 白:" + white + " で黒の勝ち\n\n");
+      System.out.println("\n黒:" + black + " 対 白:" + white + " で黒の勝ち\n");
     } else if (white > black) {
-      System.out.print("\n黒:" + black + " 対 白:" + white + " で白の勝ち\n\n");
+      System.out.println("\n黒:" + black + " 対 白:" + white + " で白の勝ち\n");
     } else {
-      System.out.print("\n黒:" + black + " 対 白:" + white + " で引き分け\n\n");
+      System.out.println("\n黒:" + black + " 対 白:" + white + " で引き分け\n");
     }
-  }
-}
-
-class Main {
-  public static void main(String[] argd) {
-    Game game = new Game();
-    game.phase();
   }
 }
