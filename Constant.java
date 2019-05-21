@@ -93,6 +93,12 @@ class Constant {
   public static final int WATCH = 3;
   public static final int EXIT = 4;
 
+  //search_type
+  public static final int PERFECT = 1;
+  public static final int WINNER = 2;
+  public static final int BOARD = 3;
+  public static final int HANDS = 4;
+
   //スコア
   public static final int[][] BOARD_SCORE = {
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
