@@ -1,22 +1,21 @@
 import java.util.Scanner;
 
 class Main {
-  static Scanner scanner = new Scanner(System.in);
   public static void menu() {
     while (true) {
       System.out.println("COMと対戦: 1");
       System.out.println("二人で対戦: 2");
       System.out.println("観戦: 3");
       System.out.println("終了: 4");
-      int mode = scanner.nextInt();
+      int mode = get_input(1, 4);
       if (mode == Constant.EXIT) {
         break;
       } else if (mode == Constant.COM) {
         System.out.println("COMのレベルを選択してください");
-        int lv = scanner.nextInt();
+        int lv = get_input(1, 8);
         System.out.println("手番を選択してください");
         System.out.println("1: 先手(黒), 2: 後手(白)");
-        int order = scanner.nextInt();
+        int order = get_input(1, 2);
         switch (order) {
         case 1:
           System.out.println("あなたの先手で始めます");
@@ -33,9 +32,9 @@ class Main {
         game.phase();
       } else if (mode == Constant.WATCH) {
         System.out.println("先手のレベルを選択してください");
-        int first = scanner.nextInt();
+        int first = get_input(1, 8);
         System.out.println("後手のレベルを選択してください");
-        int second = scanner.nextInt();
+        int second = get_input(1, 8);
         int[] lv = {first, second};
         Game game = new Game(lv);
         game.phase();
@@ -45,6 +44,22 @@ class Main {
     }
   }
   
+  public static int get_input(int low, int high) {
+    int input;
+    try {
+      Scanner sc = new Scanner(System.in);
+      input = sc.nextInt();
+      if(input < low | input > high ) {
+        System.out.println(low + "~" + high + "で入力してください");
+        input = get_input(low, high);
+      }
+    } catch (Exception e) {
+      System.out.println(low + "~" + high + "で入力してください");
+      input = get_input(low, high);
+    }
+    return input;
+  }
+
   public static void main(String[] argd) {
     menu();
   }

@@ -1,9 +1,11 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 class Player {
   private int color;
   private int lv;
+  private Scanner sc = new Scanner(System.in);
   Player(int c, int l) {
     color = c;
     lv = l;
@@ -32,7 +34,7 @@ class Player {
       System.out.print("(" + Constant.COL_VALUE.get(cell[1]) + Constant.ROW_VALUE.get(cell[0]) + ")");
     }
     System.out.print("\n" + turn + "手目: ");
-    String move = Main.scanner.next();
+    String move = sc.next();
     String[] split = move.split("");
     int col = Constant.COL_NUM.get(split[0]);
     int row = Constant.ROW_NUM.get(split[1]);

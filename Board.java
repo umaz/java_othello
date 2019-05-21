@@ -23,9 +23,11 @@ class Board {
     { Constant.WALL, Constant.WALL, Constant.WALL, Constant.WALL, Constant.WALL, Constant.WALL, Constant.WALL,
         Constant.WALL, Constant.WALL, Constant.WALL }
   };
+
   public int[][] get_board() {
     return board;
   }
+
   public void show_board() {
     System.out.print("\n\n  " + String.join(" ", Constant.COL_NUM.keySet()));
     int i = 0;
