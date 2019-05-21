@@ -30,15 +30,29 @@ class Player {
 
   private int[] lv0(Board board, int turn) {
     ArrayList<int[]> putable_cells = get_putable_cells(board);
+    String cell_list = "";
     for(int[] cell : putable_cells) {
-      System.out.print("(" + Constant.COL_VALUE.get(cell[1]) + Constant.ROW_VALUE.get(cell[0]) + ")");
+      cell_list += "(" + Constant.COL_VALUE.get(cell[1]) + Constant.ROW_VALUE.get(cell[0]) + ")";
     }
+    System.out.println(cell_list);
     System.out.print("\n" + turn + "手目: ");
     String move = sc.next();
-    String[] split = move.split("");
-    int col = Constant.COL_NUM.get(split[0]);
-    int row = Constant.ROW_NUM.get(split[1]);
-    int[] cell = {row, col};
+    int[] cell = new int[2];
+    if(move.matches("[a-h][1-8]")) {
+      String[] split = move.split("");
+      int col = Constant.COL_NUM.get(split[0]);
+      int row = Constant.ROW_NUM.get(split[1]);
+      cell[0] = row;
+      cell[1] = col;
+      if(!cell_list.contains(move)) {
+        System.out.println("そのマスには打つことはできません");
+        System.out.println("打てるマスは" + cell_list + "です");
+        cell = put_stone(board, turn);
+      }
+    }else{
+      System.out.println("正しいマスを選択してください");
+      cell = put_stone(board, turn);
+    }
     return cell;
   }
 
