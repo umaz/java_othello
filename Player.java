@@ -35,6 +35,7 @@ class Player {
 
         case 4:
           cell = lv4(board);
+          break;
 
         default:
           cell = lv1(board);
@@ -146,27 +147,27 @@ class Player {
     return put_cell;
   }
 
-  private int minmax(Board board, int depth, int color) {
+  private int minmax(Board board, int depth, int c) {
     int best_score = 999999999;
-    ArrayList<int[]> putable_cells = board.get_putable_cells(color);
+    ArrayList<int[]> putable_cells = board.get_putable_cells(c);
     for (int[] cell : putable_cells) {
       int[][] undo = new int[10][];
       for (int i = 0; i < 10; i++) {
         undo[i] = board.get_board()[i].clone();
       }
-      board.reverse(cell[0], cell[1], color);
+      board.reverse(cell[0], cell[1], c);
       int score = 0;
-      switch(status(board, -color, depth)) {
+      switch(status(board, -c, depth)) {
         case Constant.FINISH:
           score =  board_score(board);         
           break;
       
         case Constant.PASS:
-          score = minmax(board, depth-1, color);
+          score = minmax(board, depth-1, c);
           break;
 
         case Constant.MOVE:
-          score = minmax(board, depth-1, -color);
+          score = minmax(board, depth-1, -c);
           break;
 
         default:
@@ -178,10 +179,10 @@ class Player {
       if (best_score == 999999999) {
         best_score = score;
       }
-      if (color == this.color && score > best_score) {
+      if (c == color && score > best_score) {
         best_score = score;
       }
-      if (color == -this.color && score < best_score) {
+      if (c == -color && score < best_score) {
         best_score = score;
       }
     }
@@ -194,6 +195,7 @@ class Player {
   }
 
   private void evaluate(int[] cell, int score, Default d) {
+    System.out.println(Constant.COL_VALUE.get(cell[1]) + Constant.ROW_VALUE.get(cell[0]) + ":" + score);
     if(score > d.best_score) {
       d.candicate_cells = new ArrayList<int[]>();
       d.candicate_cells.add(cell);
@@ -216,7 +218,7 @@ class Player {
     for (int[] row : board.get_board()) {
       int j = 0;
       for (int col : row) {
-        if (col == color) {
+        if (col == this.color) {
           score += Constant.BOARD_SCORE[i][j];
         }
         j++;
@@ -226,12 +228,12 @@ class Player {
     return score;
   }
 
-  private int status(Board board, int color, int depth) {
+  private int status(Board board, int c, int depth) {
     if (depth == 0) {
       return Constant.FINISH;
     } else {
-      if (board.get_putable_cells(color).size() == 0) {
-        if (board.get_putable_cells(-color).size() == 0) {
+      if (board.get_putable_cells(c).size() == 0) {
+        if (board.get_putable_cells(-c).size() == 0) {
           return Constant.FINISH;
         } else {
           return Constant.PASS;
